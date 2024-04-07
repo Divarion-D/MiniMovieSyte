@@ -30,15 +30,6 @@
         %}>Помощь</a>)</h1>
     <div class="mb-3">
       <form method="POST" novalidate>
-        <label for="original-url" class="form-label">Вставьте id <a href='https://shikimori.one' {% if is_dark %}
-            class="dark-href" {% endif %}>Шикимори</a></label>
-        <input class="{% if is_dark %}dark-{% endif %}form-control" id="original-url" name="shikimori_id" required
-          autocomplete=off>
-        <button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3">Поиск</button>
-      </form>
-    </div>
-    <div class="mb-3">
-      <form method="POST" novalidate>
         <label for="original-url" class="form-label">Вставьте id <a href='https://www.kinopoisk.ru/' {% if is_dark %}
             class="dark-href" {% endif %}>Кинопоиск</a></label>
         <input class="{% if is_dark %}dark-{% endif %}form-control" id="original-url" name="kinopoisk_id" required

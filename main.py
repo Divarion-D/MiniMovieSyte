@@ -39,8 +39,6 @@ def index():
 @app.route("/", methods=["POST"])
 def index_form():
     data = dict(request.form)
-    if "shikimori_id" in data.keys():
-        return redirect(f"/download/sh/{data['shikimori_id']}/")
     if "kinopoisk_id" in data.keys():
         return redirect(f"/download/kp/{data['kinopoisk_id']}/")
     elif "name" in data.keys():  # name = Kodik
@@ -83,70 +81,7 @@ def search_page(db, query):
 
 @app.route("/download/<string:serv>/<string:id>/")
 def download_shiki_choose_translation(serv, id):
-    if serv == "sh":
-        cache_used = False
-        if ch_use and ch.is_id("sh" + id):
-            # Проверка кеша на наличие данных
-            cached = ch.get_data_by_id("sh" + id)
-            name = cached["title"]
-            pic = cached["image"]
-            score = cached["score"]
-            dtype = cached["type"]
-            date = cached["date"]
-            status = cached["status"]
-            if is_good_quality_image(pic):
-                # Проверка что была сохранена картинка в полном качестве
-                # (При поиске по шики, выдаются картинки в урезанном качестве)
-                cache_used = True
-        if not cache_used:
-            try:
-                # Попытка получить данные с шики
-                data = get_shiki_data(id)
-                name = data["title"]
-                pic = data["image"]
-                score = data["score"]
-                dtype = data["type"]
-                date = data["date"]
-                status = data["status"]
-            except:
-                name = "Неизвестно"
-                pic = config.IMAGE_AGE_RESTRICTED
-                score = "Неизвестно"
-            finally:
-                if ch_save and not ch.is_id("sh" + id):
-                    # Записываем данные в кеш если их там нет
-                    ch.add_id(
-                        "sh" + id,
-                        name,
-                        pic,
-                        score,
-                        data["status"] if data else "Неизвестно",
-                        data["date"] if data else "Неизвестно",
-                        data["type"] if data else "Неизвестно",
-                    )
-
-        try:
-            # Получаем данные о наличии переводов от кодика
-            serial_data = get_serial_info(id, "shikimori", token)
-        except Exception as ex:
-            return f"""
-            <h1>По данному запросу нет данных</h1>
-            {f'<p>Exception type: {ex}</p>' if config.DEBUG else ''}
-            """
-        return render_template(
-            "info.html",
-            title=name,
-            image=pic,
-            score=score,
-            translations=serial_data["translations"],
-            series_count=serial_data["series_count"],
-            id=id,
-            dtype=dtype,
-            date=date,
-            status=status,
-            is_dark=session["is_dark"] if "is_dark" in session.keys() else False,
-        )
-    elif serv == "kp":
+    if serv == "kp":
         try:
             # Получаем данные о наличии переводов от кодика
             serial_data = get_serial_info(id, "kinopoisk", token)
@@ -191,21 +126,7 @@ def redirect_to_download(serv, id, data, data2):
     quality = data2[0]
     seria = int(data2[1])
     try:
-        if serv == "sh":
-            if ch_use and ch.is_seria("sh" + id, translation_id, seria):
-                # Получаем данные из кеша (если есть и используется)
-                url = ch.get_seria("sh" + id, translation_id, seria)
-            else:
-                # Получаем данные с сервера
-                url = get_download_link(id, "shikimori", seria, translation_id, token)
-                if ch_save and not ch.is_seria("sh" + id, translation_id, seria):
-                    # Записываем данные в кеш
-                    try:
-                        # Попытка записать данные к уже имеющимся данным
-                        ch.add_seria("sh" + id, translation_id, seria, url)
-                    except KeyError:
-                        pass
-        elif serv == "kp":
+        if serv == "kp":
             if ch_use and ch.is_seria("kp" + id, translation_id, seria):
                 # Получаем данные из кеша (если есть и используется)
                 url = ch.get_seria("kp" + id, translation_id, seria)
@@ -262,21 +183,7 @@ def watch(serv, id, data, seria, quality=None):
         data = data.split("-")
         series = int(data[0])
         translation_id = str(data[1])
-        if serv == "sh":
-            id_type = "shikimori"
-            if ch_use and ch.is_seria("sh" + id, translation_id, seria):
-                # Получаем данные из кеша (если есть и используется)
-                url = ch.get_seria("sh" + id, translation_id, seria)
-            else:
-                # Получаем данные с сервера
-                url = get_download_link(id, "shikimori", seria, translation_id, token)
-                if ch_save and not ch.is_seria("sh" + id, translation_id, seria):
-                    # Записываем данные в кеш
-                    try:
-                        ch.add_seria("sh" + id, translation_id, seria, url)
-                    except KeyError:
-                        pass
-        elif serv == "kp":
+        if serv == "kp":
             id_type = "kinopoisk"
             if ch_use and ch.is_seria("kp" + id, translation_id, seria):
                 # Получаем данные из кеша (если есть и используется)
@@ -371,21 +278,7 @@ def room(rid):
         series = rd["series_count"]
         translation_id = str(rd["translation_id"])
         quality = rd["quality"]
-        if rd["serv"] == "sh":
-            id_type = "shikimori"
-            if ch_use and ch.is_seria("sh" + id, translation_id, seria):
-                # Получаем данные из кеша (если есть и используется)
-                url = ch.get_seria("sh" + id, translation_id, seria)
-            else:
-                # Получаем данные с сервера
-                url = get_download_link(id, "shikimori", seria, translation_id, token)
-                if ch_save and not ch.is_seria("sh" + id, translation_id, seria):
-                    # Записываем данные в кеш
-                    try:
-                        ch.add_seria("sh" + id, translation_id, seria, url)
-                    except KeyError:
-                        pass
-        elif rd["serv"] == "kp":
+        if rd["serv"] == "kp":
             id_type = "kinopoisk"
             if ch_use and ch.is_seria("kp" + id, translation_id, seria):
                 # Получаем данные из кеша (если есть и используется)

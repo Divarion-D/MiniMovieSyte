@@ -64,18 +64,6 @@ python main.py
 FrontEnd: WebSocket<br>
 BackEnd: Flask-SocketIO
 
-## Как узнать id тайтла на Шикимори
-1. Зайдите на сайт <a href='shikimori.one'>Шикимори</a> и найдите там страницу требуемого сезона/фильма.
-2. В адресной строке браузера будет виден id
-- Примеры: <p>
-    https://shikimori.one/animes/z20-naruto<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^^^<br>
-    В данном случае id будет "z20"<br><br>
-    https://shikimori.one/animes/29803-overlord<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^^^^^<br>
-    В данном случае id будет "29803"</p>
-3. Теперь можно подставлять полученный id в соответствующую поисковую строку
-
 ## Как узнать id тайтла на Кинопоиске
 1. Зайдите на сайт <a href='https://www.kinopoisk.ru'>Кинопоиска</a> и найдите там страницу требуемого сериала/фильма.
 2. В адресной строке браузера будет виден id
