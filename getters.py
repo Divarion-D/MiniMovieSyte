@@ -1,11 +1,8 @@
 import requests
-import lxml
 import json
 from bs4 import BeautifulSoup as Soup
 from base64 import b64decode
-from time import sleep, time
 from cache import Cache
-import config
 
 
 def convert_char(char: str):
