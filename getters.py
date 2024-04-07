@@ -203,36 +203,53 @@ def get_post_link():
 
 
 def get_search_data(search_query: str, token: str, ch: Cache = None):
-    payload = {"token": token, "title": search_query}
-    url = "https://kodikapi.com/search"
-    data = requests.post(url, data=payload).json()
-    items = []
+    data = requests.get(
+        "http://0.0.0.0:8000/search", params={"query": search_query}
+    ).json()
+    tv_series = []
+    films = []
     others = []
     used_ids = []
     for item in data["results"]:
-        if "kinopoisk_id" in item.keys() and item["kinopoisk_id"] not in used_ids:
-            if item["type"] == "foreign-movie":
-                ctype = "Иностранный фильм"
-            elif item["type"] == "foreign-serial":
-                ctype = "Иностранный сериал"
-            elif item["type"] == "russian-movie":
-                ctype = "Русский фильм"
-            elif item["type"] == "russian-serial":
-                ctype = "Русский сериал"
+        if "kp_id" in item.keys() and item["kp_id"] not in used_ids:
+            if item["type"] == "FILM":
+                films.append(
+                    {
+                        "id": item["kp_id"],
+                        "title": item["title"],
+                        "type": "Фильм",
+                        "date": item["year"],
+                        "image": item["poster"],
+                    }
+                )
+            elif item["type"] == "TV_SERIES":
+                tv_series.append(
+                    {
+                        "id": item["kp_id"],
+                        "title": item["title"],
+                        "type": "Сериал",
+                        "date": item["year"],
+                        "image": item["poster"],
+                    }
+                )
             else:
-                ctype = item["type"]
-            others.append(
-                {
-                    "id": item["kinopoisk_id"],
-                    "title": item["title"],
-                    "type": ctype,
-                    "date": item["year"],
-                }
-            )
-            used_ids.append(item["kinopoisk_id"])
-
+                if item["type"] == "MINI_SERIES":
+                    ctype = "Мини-сериал"
+                else:
+                    ctype = item["type"]
+                others.append(
+                    {
+                        "id": item["kp_id"],
+                        "title": item["title"],
+                        "type": ctype,
+                        "date": item["year"],
+                        "image": item["poster"],
+                    }
+                )
+            used_ids.append(item["kp_id"])
     others = sorted(others, key=lambda x: x["date"], reverse=True)
-    return (items, others)
+
+    return (films, tv_series, others)
 
 
 def is_good_quality_image(src: str) -> bool:

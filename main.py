@@ -62,11 +62,14 @@ def search_page(db, query):
     if db == "name":
         try:
             # Попытка получить данные с кодика
-            s_data = getters.get_search_data(query, token, ch if ch_save or ch_use else None)
+            s_data = getters.get_search_data(
+                query, token, ch if ch_save or ch_use else None
+            )
             return render_template(
                 "search.html",
-                items=s_data[0],
-                others=s_data[1],
+                films=s_data[0],
+                tv_series=s_data[1],
+                others=s_data[2],
                 is_dark=session["is_dark"] if "is_dark" in session.keys() else False,
             )
         except:
@@ -132,7 +135,9 @@ def redirect_to_download(serv, id, data, data2):
                 url = ch.get_seria("kp" + id, translation_id, seria)
             else:
                 # Получаем данные с сервера
-                url = getters.get_download_link(id, "kinopoisk", seria, translation_id, token)
+                url = getters.get_download_link(
+                    id, "kinopoisk", seria, translation_id, token
+                )
                 if ch_save and not ch.is_seria("kp" + id, translation_id, seria):
                     # Записываем данные в кеш
                     try:
@@ -190,7 +195,9 @@ def watch(serv, id, data, seria, quality=None):
                 url = ch.get_seria("kp" + id, translation_id, seria)
             else:
                 # Получаем данные с сервера
-                url = getters.get_download_link(id, "kinopoisk", seria, translation_id, token)
+                url = getters.get_download_link(
+                    id, "kinopoisk", seria, translation_id, token
+                )
                 if ch_save and not ch.is_seria("kp" + id, translation_id, seria):
                     # Записываем данные в кеш
                     try:
@@ -285,7 +292,9 @@ def room(rid):
                 url = ch.get_seria("kp" + id, translation_id, seria)
             else:
                 # Получаем данные с сервера
-                url = getters.get_download_link(id, "kinopoisk", seria, translation_id, token)
+                url = getters.get_download_link(
+                    id, "kinopoisk", seria, translation_id, token
+                )
                 if ch_save and not ch.is_seria("kp" + id, translation_id, seria):
                     # Записываем данные в кеш
                     try:
