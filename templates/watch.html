@@ -1,95 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Серия {{ seria }}</title>
-    <!-- Стили Bootstrap 5 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-  </head>
-  <body {% if is_dark %}class="dark-body"{% endif %}>
-    <!-- Контент -->
-    <table>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Серия {{ seria }}</title>
+  <!-- Стили Bootstrap 5 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+</head>
+
+<body {% if is_dark %}class="dark-body" {% endif %}>
+  <!-- Контент -->
+  <table>
+    <tr>
+      <td><a href='/'><button class="btn {% if is_dark %}dark-{% endif %}btn-primary">На главную</button></a></td>
+      <td>
+        <form method="POST" action="/change_theme/" novalidate>
+          <button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3"
+            style="position:absolute;top:1px">Сменить тему</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+  <div class="container mt-5">
+    <h1 class="mb-4">{{ title }}</h1>
+    {% if request.MOBILE %}
+    <img src="{{ image }}" height=500px style="padding-bottom: 10px;">
+    <br>
+    <p>
+      <font size="4">
+        Тип: {{ dtype }}<br>
+        Статус: {{ status }}<br>
+        Даты выхода: {{ date }}<br>
+      </font>
+    </p>
+    {% else %}
+    <table style="padding-bottom: 10px;">
       <tr>
-        <td><a href='/'><button class="btn {% if is_dark %}dark-{% endif %}btn-primary">На главную</button></a></td>
-        <td><form method="POST" action="/change_theme/" novalidate>
-            <button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3" style="position:absolute;top:1px">Сменить тему</button>
-        </form></td>
+        <td>
+          <img src="{{ image }}" height=500px>
+        </td>
+        <td style="vertical-align: top;">
+          <p style="padding-left: 30px;">
+            <font size="5">
+              Тип: {{ dtype }}<br>
+              Статус: {{ status }}<br>
+              Даты выхода: {{ date }}<br>
+            </font>
+          </p>
+        </td>
       </tr>
     </table>
-    <div class="container mt-5">
-      <h1>Серия {{ seria }} (<a href='https://kodikdb.com/find-player?{{ id_type }}ID={{ id }}&only_season=false'{% if is_dark %} class="dark-href"{% endif %}>Смотреть в Kodik'е</a>)</h1>
-      <video controls="controls" width="100%" autoplay>
-        <source src="{{ straight_url }}" type='video/mp4'>
-      </video>
-      <table width="100%">
+    {% endif %}
+    <hr>
+  </div>
+
+  <style>
+    table,
+    tr>* {
+      border: 1px solid;
+    }
+  </style>
+
+  <div class="container mt-5">
+    {% for balancer in seasons %}
+    <h3>{{ balancer }}:</h3>
+    <table>
+      {% for translation in seasons[balancer] %}
+      <tbody>
         <tr>
+          <td>{{ translation.name }}</td>
           <td>
-            <table>
-              {% if seria > 1 %}
-                <td><a href='/watch/{{ serv }}/{{ id }}/{{ data }}/{{ seria-1 }}/{{ quality }}/'><button class="btn {% if is_dark %}dark-{% endif %}btn-primary">Предыдущая серия</button></a></td>
-              {% endif %}
-              {% if seria < series %}
-                <td><a href='/watch/{{ serv }}/{{ id }}/{{ data }}/{{ seria+1 }}/{{ quality }}/'><button class="btn {% if is_dark %}dark-{% endif %}btn-primary">Следующая серия</button></a></td>
-              {% endif %}
-            </table>
-          </td>
-          <td>
-            <table align='right'>
-              <td><button id="skip_left" class="btn {% if is_dark %}dark-{% endif %}btn-primary" onclick="skip_left();">Назад на 1:20</button></td>
-              <td><button id="skip_right" class="btn {% if is_dark %}dark-{% endif %}btn-primary" onclick="skip_right();">Вперед на 1:20</button></td>
-            </table>
+            {% for seasons in translation.seasons %}
+            <div class="btn dark-btn-primary">{{seasons}}
+              {% for series in translation.seasons[seasons] %}
+              <a class="btn btn-success" href="{{ translation.name }}/{{ seasons }}-{{ series }}">{{series}}</a>
+              {% endfor %}
+            </div>
+            {% endfor %}
           </td>
         </tr>
-      </table>
-      {% if seria > 0 %}
-      <form method="POST" novalidate>
-        <div class="mb-3">
-        <label for="choose_seria_num" class="form-label">Введите номер серии (1-{{ data[:data.find("-")] }}):</label>
-        <table style="position:relative; top:-15px">
-          <tr>
-            <td><input id="choose_seria_num" name="seria" required autocomplete=off cols="10" maxlength='80' class="{% if is_dark %}dark-{% endif %}form-control" style="width: 100px;"></td>
-            <td><button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3" style="position: relative; top:8px">Перейти</button></td>
-          </tr>
-        </table>
-        </div>
-      </form>
-      {% endif %}
-      <p>Текущее качество видео: {{ quality }}<br>Изменить: <a href='720/'{% if is_dark %} class="dark-href"{% endif %}>720</a> | <a href='480/'{% if is_dark %} class="dark-href"{% endif %}>480</a> | <a href='360/'{% if is_dark %} class="dark-href"{% endif %}>360</a></p>
-      <p>
-        {% if allow_watch_together %}
-        <form action='/create_room/' method="POST" novalidate>
-          <div class="mb-3">
-            <button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3" style="position: relative; top:8px">Смотреть вместе</button>
-          </div>
-        </form>
+      </tbody>
+      {% endfor %}
+    </table>
+    <br>
+    {% endfor %}
+  </div>
+  <div class="container mt-5">
+    <video controls="controls" width="100%" autoplay>
+      <source src="{{ straight_url }}" type='video/mp4'>
+    </video>
+    <table width="100%">
+      <tr>
+        <td>
+          <table>
+            {% if seria > 1 %}
+            <td><a href='/watch/{{ id }}/{{ data }}/{{ seria-1 }}/{{ quality }}'><button
+                  class="btn {% if is_dark %}dark-{% endif %}btn-primary">Предыдущая серия</button></a></td>
+            {% endif %}
+            {% if seria < series %} <td><a href='/watch/{{ id }}/{{ data }}/{{ seria+1 }}/{{ quality }}'><button
+                  class="btn {% if is_dark %}dark-{% endif %}btn-primary">Следующая серия</button></a>
+        </td>
         {% endif %}
-      </p>
-      <p>
-        <a href='{{ url }}/'{% if is_dark %} class="dark-href"{% endif %}>Скачать эту серию</a>
-        (<a href='{{ straight_url }}/'{% if is_dark %} class="dark-href"{% endif %}>Прямая ссылка</a>)
-      </p>
-      <p>Если у вас не найден плеер или не получается скачать, попробуйте сменить качество.</p>
-    </div>
-    <!-- Скрипты Bootstrap 5 -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    </table>
+    </td>
+    <td>
+      <table align='right'>
+        <td><button id="skip_left" class="btn {% if is_dark %}dark-{% endif %}btn-primary" onclick="skip_left();">Назад
+            на 1:20</button></td>
+        <td><button id="skip_right" class="btn {% if is_dark %}dark-{% endif %}btn-primary"
+            onclick="skip_right();">Вперед на 1:20</button></td>
+      </table>
+    </td>
+    </tr>
+    </table>
+    <p>Текущее качество видео: {{ quality }}<br>Изменить: <a href='720' {% if is_dark %} class="dark-href" {% endif
+        %}>720</a> | <a href='480' {% if is_dark %} class="dark-href" {% endif %}>480</a> | <a href='360' {% if is_dark
+        %} class="dark-href" {% endif %}>360</a></p>
+    </p>
+    <p>
+      <a href='{{ url }}/' {% if is_dark %} class="dark-href" {% endif %}>Скачать эту серию</a>
+      (<a href='{{ straight_url }}/' {% if is_dark %} class="dark-href" {% endif %}>Прямая ссылка</a>)
+    </p>
+    <p>Если у вас не найден плеер или не получается скачать, попробуйте сменить качество.</p>
+  </div>
+  <!-- Скрипты Bootstrap 5 -->
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
-    <script>
-      const video = document.querySelector("video");
-      function skip_left() {
-        if (video.currentTime - 80 > 0) {
-          video.currentTime = video.currentTime-80
-        } else {
-          video.currentTime = 0
-        }
-      };
-      function skip_right() {
-        if (video.currentTime + 80 < video.duration) {
-          video.currentTime = video.currentTime+80
-        } else {
-          video.currentTime = video.duration
-        }
-      };
-    </script>
-  </body>
+  <script>
+    const video = document.querySelector("video");
+    function skip_left() {
+      if (video.currentTime - 80 > 0) {
+        video.currentTime = video.currentTime - 80
+      } else {
+        video.currentTime = 0
+      }
+    };
+    function skip_right() {
+      if (video.currentTime + 80 < video.duration) {
+        video.currentTime = video.currentTime + 80
+      } else {
+        video.currentTime = video.duration
+      }
+    };
+  </script>
+</body>
+
 </html>

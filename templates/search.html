@@ -2,159 +2,254 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Поиск</title>
-  <!-- Стили Bootstrap 5 -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content>
+    <meta name="keywords" content>
+
+    <title>Video - Movies, TV Shows And Video Streaming HTML5 Template</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo/favicon.png') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all-fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icomoon.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nice-select.min.css') }}">
 </head>
 
-<body {% if is_dark %}class="dark-body" {% endif %}>
-  <!-- Контент -->
-  <table>
-    <tr>
-      <td><a href='/'><button class="btn {% if is_dark %}dark-{% endif %}btn-primary">На главную</button></a></td>
-      <td>
-        <form method="POST" action="/change_theme/" novalidate>
-          <button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3"
-            style="position:absolute;top:1px">Сменить тему</button>
-        </form>
-      </td>
-    </tr>
-  </table>
-  <div class="container mt-5">
-    <h1 class="text-center mb-4">Поиск</h1>
-    <form method="POST" novalidate action="/">
-      <div class="mb-3">
-        <label for="original-url" class="form-label">Введите название</label>
-        <input class="{% if is_dark %}dark-{% endif %}form-control" id="original-url" name="name" required
-          autocomplete=off>
-      </div>
-      <button type="submit" class="btn {% if is_dark %}dark-{% endif %}btn-primary mb-3">Поиск</button>
-    </form>
-  </div>
+<body>
 
-  <div class="container mt-5">
-    {% if films %}
-    <h1 class="mb-4">Фильмы:</h1>
-    <hr>
-    <table width=100%>
-      <tr width=100%>
-        {% for item in films %}
-        <th width="{{ 100/ 1 if request.MOBILE else 3 }}%">
-          <div class="mb-3">
-            <a href="/download/kp/{{ item.id }}/" class="{% if is_dark %}dark-{% endif %}black-href">
-              <table width=100%>
-                <td>
-                <th width=30%>
-                  <img src='{{ item.image }}' height=200px width=150px>
-                </th>
-                </td>
-                <td>
-                <th width=70%>
-                  <h5>{{ item.title }}</h5>
-                  <p>Тип: {{ item.type }}<br>Даты:<br>{{ item.date }}</p>
-                </th>
-                </td>
-              </table>
-            </a>
-          </div>
-        </th>
-        {% if loop.index % (1 if request.MOBILE else 3) == 0 %}
-      </tr>
-      <tr width=100%>
-        {% endif %}
-        {% else %}
-        <div class="mb-3">
-          <th>
-            <h5>По вашему запросу ничего не найдено</h5>
-          </th>
+    <div class="preloader">
+        <div class="loader-ripple">
+            <div></div>
+            <div></div>
         </div>
-        {% endfor %}
-      </tr>
-    </table>
-    {% endif %}
-    {% if tv_series %}
-    <h1 class="mb-4">Сериалы:</h1>
-    <hr>
-    <table width=100%>
-      <tr width=100%>
-        {% for item in tv_series %}
-        <th width="{{ 100/ 1 if request.MOBILE else 3 }}%">
-          <div class="mb-3">
-            <a href="/download/kp/{{ item.id }}/" class="{% if is_dark %}dark-{% endif %}black-href">
-              <table width=100%>
-                <td>
-                <th width=30%>
-                  <img src='{{ item.image }}' height=200px width=150px>
-                </th>
-                </td>
-                <td>
-                <th width=70%>
-                  <h5>{{ item.title }}</h5>
-                  <p>Тип: {{ item.type }}<br>Даты:<br>{{ item.date }}</p>
-                </th>
-                </td>
-              </table>
-            </a>
-          </div>
-        </th>
-        {% if loop.index % (1 if request.MOBILE else 3) == 0 %}
-      </tr>
-      <tr width=100%>
-        {% endif %}
-        {% else %}
-        <div class="mb-3">
-          <th>
-            <h5>По вашему запросу ничего не найдено</h5>
-          </th>
+    </div>
+
+
+    <header class="header">
+        <div class="main-navigation">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container position-relative">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="{{ url_for('static', filename='img/logo/logo.png') }}" class="logo-dark-mode"
+                            alt="logo">
+                        <img src="{{ url_for('static', filename='img/logo/logo-dark.png') }}" class="logo-light-mode"
+                            alt="logo">
+                    </a>
+                    <div class="mobile-menu-right">
+                        <div class="nav-search-wrap">
+                            <div class="search-btn">
+                                <button type="button" class="nav-right-link search-box-outer"><i
+                                        class="icon-search"></i></button>
+                            </div>
+
+                            <div class="search-area">
+                                <form action="index-2.html#">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Type Keyword...">
+                                        <button type="submit" class="search-icon-btn"><i
+                                                class="icon-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="color-mode theme-mode-control">
+                            <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
+                            <button type="button" class="nav-right-link dark-btn"><i class="icon-moon-2"></i></button>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#main_nav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-mobile-icon"><i class="icon-menu-2"></i></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main_nav">
+                        <div class="nav-item nav-right">
+                            <div class="nav-link nav-search-wrap">
+                                <div class="search-btn">
+                                    <button type="button" class="nav-right-link search-box-outer"><i
+                                            class="icon-search"></i></button>
+                                </div>
+
+                                <div class="search-area">
+                                    <form method="POST" novalidate>
+                                        <div class="form-group">
+                                            <input name="name" type="text" autocomplete=off class="form-control"
+                                                placeholder="Type Keyword...">
+                                            <button type="submit" class="search-icon-btn"><i
+                                                    class="icon-search"></i></button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                            <div class="color-mode theme-mode-control">
+                                <button type="button" class="nav-right-link light-btn"><i class="icon-sun"></i></button>
+                                <button type="button" class="nav-right-link dark-btn"><i
+                                        class="icon-moon-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
-        {% endfor %}
-      </tr>
-    </table>
-    {% endif %}
-    {% if others %}
-    <h1 class="mb-4">Прочее:</h1>
-    <hr>
-    <table width=100%>
-      <tr width=100%>
-        {% for item in others %}
-        <th width="{{ 100/ 1 if request.MOBILE else 3 }}%">
-          <div class="mb-3">
-            <a href="/download/kp/{{ item.id }}/" class="{% if is_dark %}dark-{% endif %}black-href">
-              <table width=100%>
-                <td>
-                <th width=30%>
-                  <img src='{{ item.image }}' height=200px width=150px>
-                </th>
-                </td>
-                <td>
-                <th width=70%>
-                  <h5>{{ item.title }}</h5>
-                  <p>Тип: {{ item.type }}<br>Даты:<br>{{ item.date }}</p>
-                </th>
-                </td>
-              </table>
-            </a>
-          </div>
-        </th>
-        {% if loop.index % (1 if request.MOBILE else 3) == 0 %}
-      </tr>
-      <tr width=100%>
-        {% endif %}
-        {% else %}
-        <div class="mb-3">
-          <th>
-            <h5>По вашему запросу ничего не найдено</h5>
-          </th>
+    </header>
+    <main class="main">
+
+        <div class="site-breadcrumb" style="background: url(assets/img/breadcrumb/01.jpg)">
+            <div class="container">
+                <h2 class="breadcrumb-title">Movies One</h2>
+                <ul class="breadcrumb-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active">Movies One</li>
+                </ul>
+            </div>
         </div>
-        {% endfor %}
-      </tr>
-    </table>
-    {% endif %}
-  </div>
-  <!-- Скрипты Bootstrap 5 -->
-  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        {% if films %}
+        <div class="movie-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="site-heading-inline">
+                            <h2 class="site-title">Фильмы</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-xl-5">
+                    {% for item in films %}
+                    <div class="col-6 col-md-4 col-lg-3 col-xl">
+                        <div class="movie-item item-2">
+                            <span class="movie-quality">HD</span>
+                            <div class="movie-img">
+                                <img src="{{ item.image }}" alt="">
+                                <a href="/watch/movie/{{ item.id }}/" class="movie-play"><i class="icon-play-3"></i></a>
+                            </div>
+                            <div class="movie-content">
+                                <h6 class="movie-title"><a href="/watch/{{ item.id }}/">{{ item.title }}</a></h6>
+                                <div class="movie-info">
+                                    <span class="movie-time">{{ item.date }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tv_series %}
+        <div class="movie-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="site-heading-inline">
+                            <h2 class="site-title">Сериалы</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-xl-5">
+                    {% for item in tv_series %}
+                    <div class="col-6 col-md-4 col-lg-3 col-xl">
+                        <div class="movie-item item-2">
+                            <span class="movie-quality">HD</span>
+                            <div class="movie-img">
+                                <img src="{{ item.image }}" alt="">
+                                <a href="/watch/{{ item.id }}/" class="movie-play"><i class="icon-play-3"></i></a>
+                            </div>
+                            <div class="movie-content">
+                                <h6 class="movie-title"><a href="/watch/{{ item.id }}/">{{ item.title }}</a></h6>
+                                <div class="movie-info">
+                                    <span class="movie-time">{{ item.date }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if others %}
+        <div class="movie-area pt-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="site-heading-inline">
+                            <h2 class="site-title">Прочее</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-xl-5">
+                    {% for item in others %}
+                    <div class="col-6 col-md-4 col-lg-3 col-xl">
+                        <div class="movie-item item-2">
+                            <span class="movie-quality">HD</span>
+                            <div class="movie-img">
+                                <img src="{{ item.image }}" alt="">
+                                <a href="/watch/{{ item.id }}/" class="movie-play"><i class="icon-play-3"></i></a>
+                            </div>
+                            <div class="movie-content">
+                                <h6 class="movie-title"><a href="/watch/{{ item.id }}/">{{ item.title }}</a></h6>
+                                <div class="movie-info">
+                                    <span class="movie-time">{{ item.date }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer class="footer-area">
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 align-self-center">
+                        <p class="copyright-text">
+                            &copy; Copyright <span id="date"></span> <a href="movie.html#"> Video </a> All Rights
+                            Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 align-self-center">
+                        <ul class="footer-social">
+                            <li><a href="movie.html#"><i class="fab fa-square-facebook"></i></a></li>
+                            <li><a href="movie.html#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="movie.html#"><i class="fab fa-vimeo-v"></i></a></li>
+                            <li><a href="movie.html#"><i class="fab fa-tiktok"></i></a></li>
+                            <li><a href="movie.html#"><i class="fab fa-vk"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <a href="movie.html#" id="scroll-top"><i class="far fa-arrow-up-from-arc"></i></a>
+
+
+    <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modernizr.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/imagesloaded.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.appear.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/counter-up.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 
 </html>
