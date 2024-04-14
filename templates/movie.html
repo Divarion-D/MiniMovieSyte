@@ -251,19 +251,15 @@
 
                         firstfile = urlStr
                         i++
-                    }
-
-                    $("#servers").append(`<button id="server-${j}" onclick="get_video(${j}, '${urlStr}')" class="server-item">
+                    } else {
+                        $("#servers").append(`<button id="server-${j}" onclick="get_video(${j}, '${urlStr}')" class="server-item">
                                             <i  class="icon-play-1"></i>
                                             <span class="server-info">${balancer}
                                             <span class="server-name">${translation}</span>
                                             </span>
                                         </button>`)
-
+                    }
                     j++
-
-
-
                 }
 
             }
