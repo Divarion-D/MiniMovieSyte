@@ -34,6 +34,7 @@
                 default: r
             };
         n("mCdS"), window.$ = o.default, window.jQuery = o.default;
+        console.log(o)
         var a = document.getElementById("videoType").value,
             s = document.getElementById("fs").value,
             z = [];
@@ -43,7 +44,6 @@
         var u = document.getElementById("translation_id").value,
             l = document.getElementById("title").value,
             c = document.getElementById("startTime").value,
-            f = "1" === document.getElementById("autoplay").value,
             d = document.getElementById("poster").value,
             p = document.getElementById("source").value,
             h = document.getElementById("csrf").value,
@@ -82,7 +82,7 @@
 
                 href: HREF,
                 poster: d,
-                autoplay: f,
+                autoplay: 0,
                 log: 1,
                 logout: 1
             });

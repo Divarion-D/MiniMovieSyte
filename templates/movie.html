@@ -147,51 +147,16 @@
                             </div>
                         </div>
                     </div>
-                    {{firtfile}}
-                    {% for file in firtfile["files"] %}
-                    <source src="{{firtfile['files'][file]}}" type="video/mp4" size="{{ file }}">
-                    {% endfor %}
-                    <div class="translations"><select style="display: none;">
-                            <option value="2" selected="selected">
-                                Дубляж</option>
-                            <option value="331">
-                                AMS</option>
-                            <option value="67">
-                                Гаврилов Андрей</option>
-                            <option value="68">
-                                Живов Юрий</option>
-                            <option value="381">
-                                [EN] Original (English)</option>
-                        </select>
-                        <div class="nice-select" tabindex="0"><span class="current">
-                                Живов Юрий</span>
-                            <ul class="list">
-                                <li data-value="2" class="option">
-                                    Дубляж</li>
-                                <li data-value="331" class="option focus">
-                                    AMS</li>
-                                <li data-value="67" class="option">
-                                    Гаврилов Андрей</li>
-                                <li data-value="68" class="option selected">
-                                    Живов Юрий</li>
-                                <li data-value="381" class="option">
-                                    [EN] Original (English)</li>
-                            </ul>
-                        </div>
-                    </div>
                     <div class="movie-player mt-20">
 
                         <div class="player" id="player"></div>
                         <input type="hidden" id="videoType" value="movie">
-                        <input type="hidden" id="fs"
-                            value="{&quot;2&quot;:&quot;[360p]\/\/cloud.cdnland.in\/f9d59f206a282be9f34cd19abc0f02a1:2024041507\/movies\/0f1122be7e6ab6ae9b5a084a5ccd7403284a2a09\/240.mp4,[480p]\/\/cloud.cdnland.in\/7133be1613465112087d641e27c539cc:2024041507\/movies\/0f1122be7e6ab6ae9b5a084a5ccd7403284a2a09\/360.mp4,[720p]\/\/cloud.cdnland.in\/bc9f54129692743ace4f9454c44c679b:2024041507\/movies\/0f1122be7e6ab6ae9b5a084a5ccd7403284a2a09\/720.mp4,[1080p]\/\/cloud.cdnland.in\/899cc1eb22427e1c4cac32dda6e36c7d:2024041507\/movies\/0f1122be7e6ab6ae9b5a084a5ccd7403284a2a09\/1080.mp4&quot;,&quot;331&quot;:&quot;[360p]\/\/cloud.cdnland.in\/50b68fe732116b362a7f9f396f7c9172:2024041507\/movies\/775163a75140a33ecbbbb7f71bde38c38916547c\/240.mp4,[480p]\/\/cloud.cdnland.in\/3126cf5494e6e154ec2587279e299ee1:2024041507\/movies\/775163a75140a33ecbbbb7f71bde38c38916547c\/360.mp4,[720p]\/\/cloud.cdnland.in\/eb6e339a5127239d11047daed348a76a:2024041507\/movies\/775163a75140a33ecbbbb7f71bde38c38916547c\/720.mp4,[1080p]\/\/cloud.cdnland.in\/a60a369e92618d5c96ed28397436ea39:2024041507\/movies\/775163a75140a33ecbbbb7f71bde38c38916547c\/1080.mp4&quot;,&quot;67&quot;:&quot;[360p]\/\/cloud.cdnland.in\/86f567fc4d3be4dd94b35bedadb30763:2024041507\/movies\/4e2246255c573e84553cef1b2e1b8985385ae9d2\/240.mp4,[480p]\/\/cloud.cdnland.in\/fd96e6a0ffc0fa54d0e2c05f61165d8f:2024041507\/movies\/4e2246255c573e84553cef1b2e1b8985385ae9d2\/360.mp4,[720p]\/\/cloud.cdnland.in\/52b4394d8b089797a2d3ed2a4cdce5f7:2024041507\/movies\/4e2246255c573e84553cef1b2e1b8985385ae9d2\/720.mp4,[1080p]\/\/cloud.cdnland.in\/4e814abe645a58ca0677f36d9c172e63:2024041507\/movies\/4e2246255c573e84553cef1b2e1b8985385ae9d2\/1080.mp4&quot;,&quot;68&quot;:&quot;[360p]\/\/cloud.cdnland.in\/9ca9e515762b0391474dffcb90e41108:2024041507\/movies\/fe5c2b2c77f6e9abd2412b3d77aa7ccace6868bc\/240.mp4,[480p]\/\/cloud.cdnland.in\/64ff098baca68969ebdb4d8671bea82d:2024041507\/movies\/fe5c2b2c77f6e9abd2412b3d77aa7ccace6868bc\/360.mp4,[720p]\/\/cloud.cdnland.in\/245004add38f4c1b722da957567f3a0e:2024041507\/movies\/fe5c2b2c77f6e9abd2412b3d77aa7ccace6868bc\/720.mp4,[1080p]\/\/cloud.cdnland.in\/bd2ff0de2854b6540a315c3ae46d008f:2024041507\/movies\/fe5c2b2c77f6e9abd2412b3d77aa7ccace6868bc\/1080.mp4&quot;,&quot;381&quot;:&quot;[360p]\/\/cloud.cdnland.in\/fa8f64ba4f6f9f7d57c9e85550d7cc9e:2024041507\/movies\/e4e4bbc9a769fac562fd961185e7caea09f708c1\/240.mp4,[480p]\/\/cloud.cdnland.in\/fef913a83063298acf2e60ef25148ea4:2024041507\/movies\/e4e4bbc9a769fac562fd961185e7caea09f708c1\/360.mp4,[720p]\/\/cloud.cdnland.in\/530b56118e0cc700ce0101bded5cbdfd:2024041507\/movies\/e4e4bbc9a769fac562fd961185e7caea09f708c1\/720.mp4,[1080p]\/\/cloud.cdnland.in\/0407b3d6a72c387d3872d57c14a7be1e:2024041507\/movies\/e4e4bbc9a769fac562fd961185e7caea09f708c1\/1080.mp4&quot;}">
                         <input type="hidden" id="translation_id" value="2">
                         <input type="hidden" id="title" value="">
 
                         <input type="hidden" id="season" value="">
                         <input type="hidden" id="episode" value="">
                         <input type="hidden" id="startTime" value="">
-                        <input type="hidden" id="autoplay" value="">
                         <input type="hidden" id="poster" value="">
                         <input type="hidden" id="source" value="">
                         <input type="hidden" id="csrf" value="">
@@ -213,22 +178,7 @@
                                     <a href="movie-single.html#"><i class="far fa-share-alt"></i></a>
                                 </div>
                             </div>
-                            <div class="movie-server">
-                                {% for balancer in files %}
-                                {% if files[balancer] %}
-                                {% for translation in files[balancer] %}
-                                <button onclick="myFunction()" class="server-item active">
-                                    <i class="icon-play-1"></i>
-                                    <span class="server-info">
-                                        {{balancer}}
-                                        <span class="server-name">{{translation}}</span>
-                                    </span>
-                                </button>
-                                {% endfor %}
-                                {% endif %}
-
-                                {% endfor %}
-                            </div>
+                            <div id="servers" class="movie-server"></div>
                         </div>
                     </div>
                 </div>
@@ -277,7 +227,118 @@
     <script src="{{ url_for('static', filename='js/jquery.nice-select.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/playerjs.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/pj.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/pj.js') }}"></script> -->
+
+    <script>
+        var files = {{ files | safe }};
+        var firstfile = ""
+        const servers = document.getElementById("servers")
+
+
+        i = 0
+        j = 0
+        for (var balancer in files) {
+            if (files[balancer]) {
+                for (var translation in files[balancer]) {
+                    var urlStr = arr_to_fileURL(files[balancer][translation])
+                    if (i == 0) {
+                        $("#servers").append(`<button id="server-${j}" onclick="get_video(${j}, '${urlStr}')" class="server-item active">
+                                            <i  class="icon-play-1"></i>
+                                            <span class="server-info">${balancer}
+                                            <span class="server-name">${translation}</span>
+                                            </span>
+                                        </button>`)
+
+                        firstfile = urlStr
+                        i++
+                    }
+
+                    $("#servers").append(`<button id="server-${j}" onclick="get_video(${j}, '${urlStr}')" class="server-item">
+                                            <i  class="icon-play-1"></i>
+                                            <span class="server-info">${balancer}
+                                            <span class="server-name">${translation}</span>
+                                            </span>
+                                        </button>`)
+
+                    j++
+
+
+
+                }
+
+            }
+
+        }
+
+        var u = document.getElementById("translation_id").value,
+            l = document.getElementById("title").value,
+            c = document.getElementById("startTime").value,
+            d = document.getElementById("poster").value,
+            p = document.getElementById("source").value,
+            h = document.getElementById("csrf").value,
+            m = document.getElementById("cuid").value,
+            y = document.getElementById("hide_title").value,
+            T = document.getElementById("player"),
+
+
+            HREF = document.getElementById("href").value;
+
+        window.res = false;
+
+        function C(e) {
+            var t = window.location != window.parent.location ? document.referrer : document.location.href;
+
+            window.playerjsContainer = new Playerjs({
+                id: "player",
+                parent_domain: document.referrer,
+                cuid: m,
+                url: t,
+                eventlisteners: 0,
+                qualitystore: 1,
+                title: y ? null : l,
+                file: firstfile,
+                traslation_id: e,
+                default_quality: p ? p + "p" : "360p",
+                href: HREF,
+                poster: d,
+                autoplay: 0,
+                log: 1,
+                logout: 1
+            });
+
+            c && window.playerjsContainer.api("seek", c)
+
+            if (window.innerWidth < 500 && (window.res === false || window.res == '+')) {
+                window.res = "-"
+                window.playerjsContainer.api("design", 2);
+            } else if (window.innerWidth > 500 && (window.res === false || window.res == '-')) {
+                window.res = "+"
+                window.playerjsContainer.api("design", 1);
+            }
+        } (T), window.onresize = function () {
+
+            if (window.innerWidth < 500 && (window.res === false || window.res == '+')) {
+                window.res = "-"
+                window.playerjsContainer.api("design", 2);
+            } else if (window.innerWidth > 500 && (window.res === false || window.res == '-')) {
+                window.res = "+"
+                window.playerjsContainer.api("design", 1);
+            }
+
+            T.style.width = window.innerWidth + "px", T.style.height = window.innerHeight + "px"
+        }, p && localStorage.setItem("pljsquality", p + "p"), C(u);
+
+        function get_video(button_id, url) {
+            window.playerjsContainer.api("file", url)
+        }
+
+        function arr_to_fileURL(arr) {
+            let result = Object.entries(arr)
+                .map(([quality, url]) => `[${quality}p]${url}`)
+                .join(',');
+            return result
+        }
+    </script>
 </body>
 
 </html>

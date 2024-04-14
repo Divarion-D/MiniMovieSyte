@@ -2,19 +2,15 @@ from flask import Flask, render_template, request, redirect, abort, session, sen
 from flask_socketio import SocketIO
 from flask_mobility import Mobility
 import getters
-from json import load
 import config
 import os
+import json
 
 app = Flask(__name__)
 Mobility(app)
 socketio = SocketIO(app)
 
 app.config["SECRET_KEY"] = config.APP_SECRET_KEY
-
-with open("translations.json", "r") as f:
-    # Используется для указания озвучки при скачивании файла
-    translations = load(f)
 
 if config.USE_SAVED_DATA or config.SAVE_DATA:
     from cache import Cache
@@ -152,17 +148,6 @@ def watch_movie(kp_id):
         poster = config.IMAGE_NOT_FOUND
 
     files = getters.get_movie_links(kp_id)
-    firtfile = {}
-    for balancer in files:
-        if files[balancer]:
-            for translation_name in files[balancer]:
-                firtfile = {
-                    "translation": translation_name,
-                    "files": files[balancer][translation_name],
-                }
-                break
-
-    print(firtfile)
 
     return render_template(
         "movie.html",
@@ -175,8 +160,7 @@ def watch_movie(kp_id):
         year=year,
         rating=rating,
         leight=leight,
-        files=files,
-        firtfile=firtfile,
+        files=json.dumps(files),
         is_dark=session["is_dark"] if "is_dark" in session.keys() else False,
     )
 
