@@ -1,7 +1,9 @@
+import json
+
 import requests
+
 import config
 from cache import Cache
-import json
 
 
 def get_url_data(url: str, headers: dict = None, session=None):

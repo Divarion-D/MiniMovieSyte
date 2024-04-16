@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, redirect, abort, session, send_file
-from flask_socketio import SocketIO
-from flask_mobility import Mobility
-import getters
-import config
 import os
+
+from flask import (Flask, abort, redirect, render_template, request, send_file,
+                   session)
+from flask_mobility import Mobility
+from flask_socketio import SocketIO
+
+import config
+import getters
 
 app = Flask(__name__)
 Mobility(app)
