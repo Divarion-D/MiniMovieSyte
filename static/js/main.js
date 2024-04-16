@@ -65,21 +65,6 @@
             $(".navbar").removeClass("fixed-top");
         }
     });
-    $(window).on("load", function () {
-        if ($(".filter-box").children().length > 0) {
-            $(".filter-box").isotope({ itemSelector: ".filter-item", masonry: { columnWidth: 1 } });
-            $(".filter-btn").on("click", "li", function () {
-                var filterValue = $(this).attr("data-filter");
-                $(".filter-box").isotope({ filter: filterValue });
-            });
-            $(".filter-btn li").each(function () {
-                $(this).on("click", function () {
-                    $(this).siblings("li.active").removeClass("active");
-                    $(this).addClass("active");
-                });
-            });
-        }
-    });
     if ($("#countdown").length) {
         $("#countdown").countdown("2030/01/30", function (event) {
             $(this).html(

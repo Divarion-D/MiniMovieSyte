@@ -1,7 +1,6 @@
 import os
 
-from flask import (Flask, abort, redirect, render_template, request, send_file,
-                   session)
+from flask import Flask, abort, redirect, render_template, request, send_file, session
 from flask_mobility import Mobility
 from flask_socketio import SocketIO
 
@@ -30,12 +29,10 @@ def index():
     )
 
 
-@app.route("/", methods=["POST"])
-def index_form():
+@app.route("/handler/", methods=["POST"])
+def handler():
     data = dict(request.form)
-    if "kinopoisk_id" in data.keys():
-        return redirect(f"/download/kp/{data['kinopoisk_id']}/")
-    elif "name" in data.keys():  # name = Kodik
+    if "name" in data.keys():
         return redirect(f"/search/name/{data['name']}/")
     else:
         return abort(400)
