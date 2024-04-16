@@ -1,4 +1,5 @@
 import requests
+import config
 from cache import Cache
 
 
@@ -16,7 +17,7 @@ def is_video(iframe_url: str) -> bool:
 
 def get_serial_seasons(kp_id: str) -> dict:
     data = requests.get(
-        "http://0.0.0.0:8000/tvseries/seasons", params={"kp_id": kp_id, "player": "all"}
+        config.API + "/tvseries/seasons", params={"kp_id": kp_id, "player": "all"}
     ).json()
 
     return data
@@ -25,19 +26,18 @@ def get_serial_seasons(kp_id: str) -> dict:
 
 def get_movie_links(kp_id: str):
     data = requests.get(
-        "http://0.0.0.0:8000/movie/videos",
+        config.API + "/movie/videos",
         params={"kp_id": kp_id, "player": "all"},
     ).json()
 
     return data
 
-    
 
 def get_download_link_tv(
     kp_id: str, balancer: str, translation_name: str, season_num: int, seria_num: int
 ):
     data = requests.get(
-        "http://0.0.0.0:8000/tvseries/videos?&season=1&series=1",
+        config.API + "/tvseries/videos?&season=1&series=1",
         params={
             "kp_id": kp_id,
             "player": balancer,
@@ -55,9 +55,7 @@ def get_download_link_tv(
 
 
 def get_search_data(search_query: str, ch: Cache = None):
-    data = requests.get(
-        "http://0.0.0.0:8000/search", params={"query": search_query}
-    ).json()
+    data = requests.get(config.API + "/search", params={"query": search_query}).json()
     tv_series = []
     films = []
     others = []
@@ -105,7 +103,7 @@ def get_search_data(search_query: str, ch: Cache = None):
 
 
 def get_details_info(kp_id: str):
-    data = requests.get("http://0.0.0.0:8000/details", params={"kp_id": kp_id}).json()
+    data = requests.get(config.API + "/details", params={"kp_id": kp_id}).json()
 
     if data["type"] == "FILM":
         dtype = "Фильм"
