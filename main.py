@@ -4,7 +4,6 @@ from flask_mobility import Mobility
 import getters
 import config
 import os
-import json
 
 app = Flask(__name__)
 Mobility(app)
@@ -80,7 +79,6 @@ def download_choose_translation(id):
         cached = ch.get_data_by_id("sh" + id)
         name = cached["title"]
         pic = cached["image"]
-        score = cached["score"]
         dtype = cached["type"]
         date = cached["date"]
         status = cached["status"]
@@ -160,7 +158,7 @@ def watch_movie(kp_id):
         year=year,
         rating=rating,
         leight=leight,
-        files=json.dumps(files),
+        files=files,
         is_dark=session["is_dark"] if "is_dark" in session.keys() else False,
     )
 

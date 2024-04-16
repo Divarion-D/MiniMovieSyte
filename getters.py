@@ -1,6 +1,7 @@
 import requests
 import config
 from cache import Cache
+import json
 
 
 def get_url_data(url: str, headers: dict = None, session=None):
@@ -30,7 +31,7 @@ def get_movie_links(kp_id: str):
         params={"kp_id": kp_id, "player": "all"},
     ).json()
 
-    return data
+    return json.dumps(data)
 
 
 def get_download_link_tv(
