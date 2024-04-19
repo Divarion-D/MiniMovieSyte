@@ -7,9 +7,15 @@
 
 1. Склонируйте репозиторий
 2. Создайте и активируйте виртуальное окружение
+#### Windows
 ```commandline
 python -m venv venv
 venv/Scripts/activate
+```  
+#### Linux
+```commandline
+python -m venv venv
+source .venv/bin/activate
 ```  
 3. Установите зависимости
 ```commandline
