@@ -89,7 +89,7 @@ def watch(kp_id):
             firstUrlIframe = players["iframeUrl"]
 
     return render_template(
-        "movie.html",
+        "watch.html",
         kp_id=kp_id,
         poster=poster,
         title=title,
