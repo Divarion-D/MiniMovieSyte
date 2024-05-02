@@ -86,7 +86,8 @@ def watch(kp_id):
 
     for players in iframe[0]:
         if players:
-            firstUrlIframe = players["iframeUrl"]
+            if players["iframeUrl"]:
+                firstUrlIframe = players["iframeUrl"]
 
     return render_template(
         "watch.html",
