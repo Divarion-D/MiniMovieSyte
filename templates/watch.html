@@ -212,14 +212,14 @@
         var translation = iframes[balancer].source
         var iframeURL = iframes[balancer].iframeUrl
         if (i == 0) {
-          $("#servers").append(`<a href="${iframeURL}" target="iframe_player" id="server-${j}" onclick="get_video(${j})" class="server-item active">
+          $("#servers").append(`<a href="${iframeURL}" target="iframe_player" class="server-item" data-active="active">
                                                 <i  class="icon-play-1"></i>
                                                 <span class="server-name">${translation}</span>
                                                 </span>
                                             </a>`)
           i++
         } else {
-          $("#servers").append(`<a href="${iframeURL}" target="iframe_player" id="server-${j}" onclick="get_video(${j})" class="server-item">
+          $("#servers").append(`<a href="${iframeURL}" target="iframe_player" class="server-item">
                                                 <i  class="icon-play-1"></i>
                                                 <span class="server-name">${translation}</span>
                                                 </span>
@@ -228,8 +228,20 @@
         j++
       }
     }
-    function get_video(button_id) {
-      console.log("set video")
+
+    var header = document.getElementById("servers");
+    var btns = header.getElementsByClassName("server-item");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].onclick = function () {
+        for (var j = 0; j < btns.length; j++) {
+          btns[j].dataset.active = "inactive";
+        }
+        if (this.dataset.active == "active") {
+          this.dataset.active = "inactive";
+        } else {
+          this.dataset.active = "active";
+        }
+      }
     }
 
     function arr_to_fileURL(arr) {

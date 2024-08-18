@@ -2048,7 +2048,7 @@ label {
     font-weight: 500
 }
 
-.movie-single .movie-server .server-item.active {
+.movie-single .movie-server .server-item[data-active="active"] {
     border-color: var(--theme-color)
 }
 

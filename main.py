@@ -88,6 +88,7 @@ def watch(kp_id):
         if players:
             if players["iframeUrl"]:
                 firstUrlIframe = players["iframeUrl"]
+                break
 
     return render_template(
         "watch.html",
