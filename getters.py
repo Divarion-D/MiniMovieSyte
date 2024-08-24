@@ -99,7 +99,7 @@ def get_details_info(kp_id: str):
 
 
 def get_player_iframe(kp_id: str):
-    data = requests.get(f"https://kinobox.tv/api/players?kinopoisk={kp_id}").json()
+    data = requests.get(f"https://kinobox.tv/api/players?kinopoisk={kp_id}&sources=Alloha,Ashdi,Cdnmovies,Collaps,Hdvb,Kodik,Vibix,Videocdn,Voidboost").json()
     return (data, json.dumps(data))
 
 
